@@ -5,19 +5,20 @@ import SearchIcon from "@material-ui/icons/Search";
 
 import useStyles from "./styles";
 
-const Header = ({ setCoordinates }) => {
+// const Header = ({ setCoordinates }) => {
+const Header = ({ onPlaceChanged, onLoad }) => {
   const classes = useStyles();
 
-  const [autoComplete, setAutoComplete] = useState(null);
+  // const [autoComplete, setAutoComplete] = useState(null);
 
-  const onLoad = (autoC) => setAutoComplete(autoC);
+  // const onLoad = (autoC) => setAutoComplete(autoC);
 
-  const onPlaceChanged = () => {
-    const lat = autoComplete.getPlace().geometry.location.lat();
-    const lng = autoComplete.getPlace().geometry.location.lng();
+  // const onPlaceChanged = () => {
+  //   const lat = autoComplete.getPlace().geometry.location.lat();
+  //   const lng = autoComplete.getPlace().geometry.location.lng();
 
-    setCoordinates({ lat, lng });
-  };
+  //   setCoordinates({ lat, lng });
+  // };
 
   return (
     <AppBar position="static">

@@ -11,10 +11,12 @@ const App = () => {
   const [weatherData, setWeatherData] = useState([]);
   const [filteredPlaces, setFilteredPlaces] = useState([]);
 
+  const [autoComplete, setAutoComplete] = useState(null);
   const [childClicked, setChildClicked] = useState(null);
 
   const [coordinates, setCoordinates] = useState({});
-  const [bounds, setBounds] = useState({});
+  // const [bounds, setBounds] = useState({});
+  const [bounds, setBounds] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [type, setType] = useState("restaurants");
@@ -22,20 +24,20 @@ const App = () => {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
-      ({ coords: { latitude, longitude } }) => {
+      ({ coordinates: { latitude, longitude } }) => {
         setCoordinates({ lat: latitude, lng: longitude });
       }
     );
   }, []);
 
   useEffect(() => {
-    const FilteredPlaces = places.filter((place) => place.rating > rating);
+    const filtered = places.filter((place) => Number(place.rating) > rating);
 
-    setFilteredPlaces(filteredPlaces);
+    setFilteredPlaces(filtered);
   }, [rating]);
 
   useEffect(() => {
-    if (bounds.sw && bounds.ne) {
+    if (bounds) {
       setIsLoading(true);
 
       getWeatherData(coordinates.lat, coordinates.lng).then((data) =>
@@ -43,17 +45,28 @@ const App = () => {
       );
 
       getPlacesData(type, bounds.sw, bounds.ne).then((data) => {
-        setPlaces(data?.filter((place) => place.name && place.num_reviews > 0));
+        setPlaces(data.filter((place) => place.name && place.num_reviews > 0));
         setFilteredPlaces([]);
+        setRating("");
         setIsLoading(false);
       });
     }
   }, [type, bounds]);
 
+  const onLoad = (autoC) => setAutoComplete(autoC);
+
+  const onPlaceChanged = () => {
+    const lat = autoComplete.getPlace().geometry.location.lat();
+    const lng = autoComplete.getPlace().geometry.location.lng();
+
+    setCoordinates({ lat, lng });
+  };
+
   return (
     <React.Fragment>
       <CssBaseline />
-      <Header setCoordinates={setCoordinates} />
+      {/* <Header setCoordinates={setCoordinates} /> */}
+      <Header onPlaceChanged={onPlaceChanged} onLoad={onLoad} />
       <Grid container spacing={3} style={{ width: "100%" }}>
         <Grid item xs={12} md={4}>
           <List

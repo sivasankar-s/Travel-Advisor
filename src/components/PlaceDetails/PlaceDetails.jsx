@@ -21,7 +21,6 @@ const PlaceDetails = ({ place, selected, refProp }) => {
   if (selected)
     refProp?.current?.scrollIntoView({ behaviour: "smooth", block: "start" });
 
-  console.log(place);
   return (
     <Card elevation={6}>
       <CardMedia
@@ -91,23 +90,23 @@ const PlaceDetails = ({ place, selected, refProp }) => {
             <PhoneIcon /> {place.phone}
           </Typography>
         )}
-        <CardActions>
-          <Button
-            size="small"
-            color="primary"
-            onClick={() => window.open(place.web_url, "_blank")}
-          >
-            Trip Advisor
-          </Button>
-          <Button
-            size="small"
-            color="primary"
-            onClick={() => window.open(place.website, "_blank")}
-          >
-            Website
-          </Button>
-        </CardActions>
       </CardContent>
+      <CardActions>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => window.open(place.web_url, "_blank")}
+        >
+          Trip Advisor
+        </Button>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => window.open(place.website, "_blank")}
+        >
+          Website
+        </Button>
+      </CardActions>
     </Card>
   );
 };
