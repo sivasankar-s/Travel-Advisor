@@ -1,3 +1,10 @@
+
+This is a Project which I coded by watching the Youtube Video https://www.youtube.com/watch?v=UKdQjQX1Pko for learning purpose about APIs
+
+This project uses Google Maps Javascript API, Places API, OpenWeather API, TravelAdvisor API
+
+This Web app gives you info about all Restarurants, Hotels, and attractions anywhere in the World
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
